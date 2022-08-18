@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const chalk = require('chalk');
 const connectDB = require('./config/db');
 const fileupload = require('express-fileupload');
+const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
 
 // Load env vars
@@ -16,11 +17,15 @@ connectDB();
 // Route files
 const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');
+const auth = require('./routes/auth');
 
 const application = express();
 
 // Body parser
 application.use(express.json());
+
+// Cookie parser
+application.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
@@ -36,6 +41,7 @@ application.use(express.static(path.join(__dirname, 'public')));
 // Mount routers
 application.use('/api/v1/bootcamps', bootcamps);
 application.use('/api/v1/courses', courses);
+application.use('/api/v1/auth', auth);
 
 // Middleware
 application.use(errorHandler);
