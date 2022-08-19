@@ -18,6 +18,7 @@ connectDB();
 const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');
 const auth = require('./routes/auth');
+const users = require('./routes/users');
 
 const application = express();
 
@@ -42,6 +43,7 @@ application.use(express.static(path.join(__dirname, 'public')));
 application.use('/api/v1/bootcamps', bootcamps);
 application.use('/api/v1/courses', courses);
 application.use('/api/v1/auth', auth);
+application.use('/api/v1/users', users);
 
 // Middleware
 application.use(errorHandler);
