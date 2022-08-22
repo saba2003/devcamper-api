@@ -19,6 +19,7 @@ const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
+const reviews = require('./routes/reviews');
 
 const application = express();
 
@@ -44,6 +45,7 @@ application.use('/api/v1/bootcamps', bootcamps);
 application.use('/api/v1/courses', courses);
 application.use('/api/v1/auth', auth);
 application.use('/api/v1/users', users);
+application.use('/api/v1/reviews', reviews);
 
 // Middleware
 application.use(errorHandler);
