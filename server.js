@@ -5,8 +5,14 @@ const morgan = require('morgan');
 const chalk = require('chalk');
 const connectDB = require('./config/db');
 const fileupload = require('express-fileupload');
-const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
+const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimiter = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors');
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -28,6 +34,28 @@ application.use(express.json());
 
 // Cookie parser
 application.use(cookieParser());
+
+// Sanitize data / prevent NoSQLInjeqtions
+application.use(mongoSanitize());
+
+// Set security headers
+application.use(helmet());
+
+// Prevent XSS attacks
+application.use(xss());
+
+// Limiting requests
+const limiter = rateLimiter({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100,
+});
+application.use(limiter);
+
+// Prevent http param pollution
+application.use(hpp());
+
+// Enable cors
+application.use(cors());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
