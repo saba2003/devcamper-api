@@ -60,3 +60,28 @@ The **DevCamper API** is a full-featured backend solution for a bootcamp directo
 1. Clone the repository:
    ```bash
    git clone https://github.com/saba2003/devcamper-api.git
+
+### Usage
+API Endpoints
+Bootcamps
+
+    GET /api/v1/bootcamps – Get all bootcamps
+    POST /api/v1/bootcamps – Create a new bootcamp (Publisher/Admin only)
+    PUT /api/v1/bootcamps/:id – Update a bootcamp (Owner/Admin only)
+    DELETE /api/v1/bootcamps/:id – Delete a bootcamp (Owner/Admin only)
+
+Courses
+
+    GET /api/v1/courses – Get all courses
+    POST /api/v1/bootcamps/:bootcampId/courses – Add a course to a bootcamp
+
+Authentication
+
+    POST /api/v1/auth/register – Register a user
+    POST /api/v1/auth/login – Login user and return JWT token
+    POST /api/v1/auth/forgotpassword – Send password reset link
+
+Reviews
+
+    GET /api/v1/reviews – Get all reviews
+    POST /api/v1/bootcamps/:bootcampId/reviews – Add a review
